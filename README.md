@@ -2,7 +2,7 @@
 
 Simple Utility to Expose a local serial port on a network port, allowing for remote serial port access
 
-Published on Dockerhub @ dockerhub.com/akshmakov/serialport-server
+Published on Dockerhub @ https://dockerhub.com/akshmakov/serialport-server
 
 
 
