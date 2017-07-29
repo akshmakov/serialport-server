@@ -1,6 +1,9 @@
 # serialport-server
 
-Simple Utility to Expose a local serial port ( RS232 ) on a network port, allowing for remote serial port access
+Simple Utility to Expose a local serial port on a network port, allowing for remote serial port access
+
+Published on Dockerhub @ dockerhub.com/akshmakov/serialport-server
+
 
 
 ## Requirements
@@ -34,7 +37,13 @@ device: local socket or device (e.g. /dev/ttyUSB0)
 
 ## Usage - Docker
 
-Docker container is available under dockerhub tag `akshmakov/serialport-server`
+Docker container is available under dockerhub `akshmakov/serialport-server:TAG`, list of tags
+
+- **latest** **amd64**  container for standard x86_64 systems (alpine base)
+- **arm32v7** armv7 systems (RPI 2/3)
+- **arm32v6** armv6 systems (RPI 1 , comaptible with 2/3)
+
+if you leave the tag off, the amd64 tag will be pulled 
 
 To start a dockerized serial port server on host port '2000'
 
