@@ -20,7 +20,8 @@ function error_exit
     # Accepts 1 argument:
     # string containing descriptive error message
     #----------------------------------------------------------------
-    echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
+    echo "ERROR: ${PROGNAME} - ${1:-"Unknown Error"}" 1>&2
+    usage
     exit 1
 }
 
@@ -40,9 +41,9 @@ options:
 device: local socket or device (e.g. /dev/ttyUSB0)
 
 The following Environment Variables can be used in lieu of args
-$PORT     - TCP Port
-$BAUDRATE - Baudrate
-$DEVICE   - device 
+PORT     - TCP Port
+BAUDRATE - Baudrate
+DEVICE   - device 
 EOF
 	exit 0
 
@@ -64,10 +65,6 @@ BAUDRATE=${BAUDRATE-9600}
 ## Most options modify one of the service variables above
 ## A few set Application Flags
 ## Command Processing Happens After
-
-if [[ $# = 0 ]]; then
-    usage
-fi
 
 while [[ $# -gt 0 ]]
 do
@@ -117,7 +114,7 @@ done
 ## Command Arguments can be added later
 if [[ -n $1 ]]; then
     DEVICE=$1
-elif [[ -z DEVICE ]]; then
+elif [[ -z $DEVICE ]]; then
     error_exit "You need to specify a device"
 fi
 
@@ -162,7 +159,7 @@ EOF
 SOCAT_BIN=socat
 SOCAT_OPTS="-v"
 SOCAT_TCP_PRE=tcp4-listen
-SOCAT_TCP_POST="reuseaddr"
+SOCAT_TCP_POST="reuseaddr,fork,ignoreeof"
 
 SOCAT_FILE_PRE=file
 SOCAT_FILE_POST="raw,nonblock,echo=0"

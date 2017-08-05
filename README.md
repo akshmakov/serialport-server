@@ -16,34 +16,41 @@ Published on Dockerhub @ https://dockerhub.com/akshmakov/serialport-server
 Start a server simply by
 
 ```
-$ ./rs232-server.sh /dev/ttyUSB0
+$ ./serialport-server.sh /dev/ttyUSB0
 ```
 
 Full Usage Information:
 
 ```
-Usage: rs232-server [OPTIONS] device 
+Usage: serialport-server.sh [OPTIONS] device
 
-options: 
+options:
      -p/--port=<PORT>         : exposed TCP Port (default=2000)
      -b/--tty-br=<BAUDRATE>   : baud rate of underlying device (default=9600)
      -l/--logfile=<FNAME>     : save output to file
      -h/--help                : print this usage
-     -d/--daemon              : daemonize (background) 
-     -v/--verbose             : more (debug) 
+     -d/--daemon              : daemonize (background)
+     -v/--verbose             : more (debug)
 
 device: local socket or device (e.g. /dev/ttyUSB0)
+
+The following Environment Variables can be used in lieu of args
+PORT     - TCP Port
+BAUDRATE - Baudrate
+DEVICE   - device
+
 ```
 
 ## Usage - Docker
 
 Docker container is available under dockerhub `akshmakov/serialport-server:TAG`, list of tags
 
-- **latest** **amd64**  container for standard x86_64 systems (alpine base)
-- **arm32v7** armv7 systems (RPI 2/3)
-- **arm32v6** armv6 systems (RPI 1 , comaptible with 2/3)
+- `latest` `amd64`  container for standard x86_64 systems (alpine base)
+- `arm32v7` armv7 systems (RPI 2/3)
+- `arm32v6` armv6 systems (RPI 1 , comaptible with 2/3)
+- `arm32v6-x.x.x`, `arm32v7-x.x.x`, `amd64-x.x.x` Frozen Version Tags (These Tags will not be overwritten on DockerHub)
 
-if you leave the tag off, the amd64 tag will be pulled 
+If you leave the tag off, the amd64 tag will be pulled 
 
 To start a dockerized serial port server on host port '2000'
 
@@ -96,3 +103,5 @@ $ socom file:'tty',raw,echo=0 tcp:ip.op.serial.server:2000,raw,echo=0
 
 using `picocom` or `minicom` pointing them at the port
 
+
+On windows, this server has been tested with `realterm`
